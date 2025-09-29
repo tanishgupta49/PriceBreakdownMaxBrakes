@@ -1,0 +1,260 @@
+<html>
+
+<head>
+  <title>Price Breakdown</title>
+</head>
+
+<body>
+  <form>
+    <h1>Price Breakdown</h1>
+
+    <!--
+  <div>
+    <input type="radio" id="input" name="whichKit" value="frontOnly"> <label>Front Kit Only</label>
+    <input type="radio" id="rearKit" name="whichKit" value="rearOnly"> <label>Rear Kit Only</label>
+    <input type="radio" id="fullKit" name="whichKit" value="fullOnly"> <label>Full Front and Rear Kit</label>
+  </div>
+
+-->
+
+
+    <select name="whichKit2" id="whichKit2">
+      <option value="d">Select One</option>
+      <option value="a">Front Kit Only</option>
+      <option value="b">Rear Kit Only</option>
+      <option value="c">Full Kit</option>
+    </select>
+    <br><br>
+
+
+    <div>
+
+      Enter Order Total <br><br>
+
+      <input type="number" id="total" name="total" placeholder="0"> <button id="submit" type="button"
+        onclick="breakPrice()">Submit</button>
+
+    </div>
+
+    <br><br>
+    <div>
+      <label id="frlbl">Front Rotors :</label> <label id="frotor"></label> <br><br>
+
+      <label id="rrlbl">Rear Rotors :</label> <label id="rrotor"></label> <br><br>
+
+      <label id="fplbl">Front Pads :</label> <label id="fpad"></label> <br><br>
+
+      <label id="rplbl">Rear Pads :</label> <label id="rpad"></label> <br><br>
+
+      <button onclick="window.location.reload();">Refresh Page</button>
+    </div>
+
+  </form>
+
+  <script>
+
+    //alert("We are online!!");
+
+    var xyz = "xyz";
+
+    //alert("this is working!!");
+
+    document.getElementById("whichKit2").onchange = function () {
+      //var abc = document.getElementById("whichKit2"); 
+      //var def = abc.options[abc.selectedIndex].value; 
+      //alert("this is working!!");
+      if (this.value == "a") {
+        //alert("You selected Front only");
+        document.getElementById("frlbl").style.display = "block";
+        document.getElementById("fplbl").style.display = "block";
+        document.getElementById("rrlbl").style.display = "none";
+        document.getElementById("rplbl").style.display = "none";
+
+        document.getElementById("frotor").innerHTML = '';
+        document.getElementById("rrotor").innerHTML = '';
+        document.getElementById("fpad").innerHTML = '';
+        document.getElementById("rpad").innerHTML = '';
+
+        document.getElementById("total").value = 0;
+
+        xyz = 1;
+
+      } else if (this.value === "b") {
+        //alert("You selected Rear only");
+        document.getElementById("frlbl").style.display = "none";
+        document.getElementById("fplbl").style.display = "none";
+        document.getElementById("rrlbl").style.display = "block";
+        document.getElementById("rplbl").style.display = "block";
+
+        document.getElementById("frotor").innerHTML = '';
+        document.getElementById("rrotor").innerHTML = '';
+        document.getElementById("fpad").innerHTML = '';
+        document.getElementById("rpad").innerHTML = '';
+
+        document.getElementById("total").value = 0;
+
+        xyz = 2;
+
+      } else if (this.value === "c") {
+        //alert("You selected full kit");
+        document.getElementById("frlbl").style.display = "block";
+        document.getElementById("fplbl").style.display = "block";
+        document.getElementById("rrlbl").style.display = "block";
+        document.getElementById("rplbl").style.display = "block";
+
+        document.getElementById("frotor").innerHTML = '';
+        document.getElementById("rrotor").innerHTML = '';
+        document.getElementById("fpad").innerHTML = '';
+        document.getElementById("rpad").innerHTML = '';
+
+        document.getElementById("total").value = 0;
+
+        xyz = 3;
+
+      }
+    }
+
+
+
+
+
+
+
+    //function to trigger onclick when pressed enter in the input box 
+    var input = document.getElementById("total");
+    input.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("submit").click();
+      }
+    })
+
+    function breakPrice() {
+      //document.getElementById("whichKit2").onchange = function () {
+      //var abc = document.getElementById("whichKit2"); 
+      //var def = abc.options[abc.selectedIndex].value; 
+      //alert("this is working!!");
+      if (xyz == 1) {
+        //alert("You selected Front only");
+        document.getElementById("frlbl").style.display = "block";
+        document.getElementById("fplbl").style.display = "block";
+        document.getElementById("rrlbl").style.display = "none";
+        document.getElementById("rplbl").style.display = "none";
+
+        const ttl = document.getElementById("total").value;
+        frcost = (ttl * 0.67);
+        //rrcost = (ttl * 0.30);
+        fpcost = (ttl * 0.33);
+        //rpcost = (ttl * 0.18);
+        document.getElementById("frotor").innerHTML = frcost.toFixed(2);
+        //document.getElementById("rrotor").innerHTML = rrcost.toFixed(2);
+        document.getElementById("fpad").innerHTML = fpcost.toFixed(2);
+        //document.getElementById("rpad").innerHTML = rpcost.toFixed(2);
+
+
+      } else if (xyz == 2) {
+        //alert("You selected Rear only");
+        document.getElementById("frlbl").style.display = "none";
+        document.getElementById("fplbl").style.display = "none";
+        document.getElementById("rrlbl").style.display = "block";
+        document.getElementById("rplbl").style.display = "block";
+
+        const ttl = document.getElementById("total").value;
+        //frcost = (ttl * 0.67);
+        rrcost = (ttl * 0.67);
+        //fpcost = (ttl * 0.33);
+        rpcost = (ttl * 0.33);
+        //document.getElementById("frotor").innerHTML = frcost.toFixed(2);
+        document.getElementById("rrotor").innerHTML = rrcost.toFixed(2);
+        //document.getElementById("fpad").innerHTML = fpcost.toFixed(2);
+        document.getElementById("rpad").innerHTML = rpcost.toFixed(2);
+
+      } else if (xyz == 3) {
+        //alert("You selected full kit");
+        document.getElementById("frlbl").style.display = "block";
+        document.getElementById("fplbl").style.display = "block";
+        document.getElementById("rrlbl").style.display = "block";
+        document.getElementById("rplbl").style.display = "block";
+
+        const ttl = document.getElementById("total").value;
+        frcost = (ttl * 0.33);
+        rrcost = (ttl * 0.30);
+        fpcost = (ttl * 0.19);
+        rpcost = (ttl * 0.18);
+        document.getElementById("frotor").innerHTML = frcost.toFixed(2);
+        document.getElementById("rrotor").innerHTML = rrcost.toFixed(2);
+        document.getElementById("fpad").innerHTML = fpcost.toFixed(2);
+        document.getElementById("rpad").innerHTML = rpcost.toFixed(2);
+
+      }
+      //alert(ttl); 
+    }//break price ends
+
+
+    /*
+    
+    
+    
+    
+          frcost = (ttl * 0.33);
+      rrcost = (ttl * 0.30);
+      fpcost = (ttl * 0.19);
+      rpcost = (ttl * 0.18);
+      document.getElementById("frotor").innerHTML = frcost.toFixed(2);
+      document.getElementById("rrotor").innerHTML = rrcost.toFixed(2);
+      document.getElementById("fpad").innerHTML = fpcost.toFixed(2);
+      document.getElementById("rpad").innerHTML = rpcost.toFixed(2);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+          document.getElementById("frlbl").style.display = "block"; 
+          document.getElementById("fplbl").style.display = "block"; 
+          document.getElementById("rrlbl").style.display = "none"; 
+          document.getElementById("rplbl").style.display = "none";
+        
+        
+        
+        
+         if (x.checked == true) {
+         alert('Front kit selected'); 
+         }
+        
+        
+            //for front kit only 
+      var input = document.getElementById("input");
+      input.addEventListener('input', () => {
+        if (x.checked) {
+          alert('this is a message!');
+        }
+      });
+    
+    
+      //rear kit only
+      const y = document.getElementById("frontKit");
+      if (y.checked == true) {
+        alert('Rear kit selected');
+      }
+    
+      //full kit only
+      const z = document.getElementById("frontKit");
+      if (z.checked == true) {
+        alert('Full kit selected');
+      }
+        
+        
+        */
+
+
+  </script>
+</body>
+</html>
