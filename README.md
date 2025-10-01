@@ -1,4 +1,6 @@
-# PriceBreakdownMaxBrakes
+# Max Brakes CSR Tools 
+
+Price Breakdown 
 Simple price breakdown calculator for internal use. Uses pre-defined values. 
 
 Basic HTML and JS use 
@@ -22,4 +24,5 @@ Front pads - 19%
 Rear pads - 18%
 
 
-
+Remove Brackets
+Simple tool to remove brakets from tracking numbers. 
