@@ -5,6 +5,12 @@
 <head>
   <title>Max Brakes CSR Tools</title>
 
+  <!--
+  ***************************************************************************************************************************************************************
+  ****************************************************************** CSS STARTS *********************************************************************************
+  ***************************************************************************************************************************************************************
+-->
+
   <style>
     body {
       /*background-color: rgba(0, 0, 0, 0.795);*/
@@ -57,7 +63,20 @@
       border: 2px solid green;
     }
   </style>
+
+  <!--
+  ***************************************************************************************************************************************************************
+  ****************************************************************** CSS ENDS ***********************************************************************************
+  ***************************************************************************************************************************************************************
+-->
+
 </head>
+
+<!--
+  ***************************************************************************************************************************************************************
+  ************************************************************* MAIN BODY STARTS ********************************************************************************
+  ***************************************************************************************************************************************************************
+-->
 
 <body class="center">
   <div class="babyDiv">
@@ -77,8 +96,6 @@
         <input type="number" id="total" name="total" placeholder="0">
         <button id="submit" type="button" onclick="breakPrice()">Submit</button>
       </p>
-
-      <br><br>
 
       <p>
         <label id="frlbl">Front Rotors :</label> <label id="frotor"></label> <br><br>
@@ -116,13 +133,27 @@
     <h1>Remove Brackets</h1>
     <br>
     <textarea id="mainArea" name="mainArea" rows="7" columns="20"></textarea>
-    <br>
-    <button onclick="showResults()">Submit</button>
+    <br><br>
+    <button onclick="showResults()">Remove & Copy</button>
     <br><br><br>
     <label id="results" name="results"></label>
   </div>
 
-  <script>
+  <div class="babyDiv">
+
+    <label id="templates" name="templates"></label> <br>
+
+    <button onclick="templateBuilder()">Template Builder</button>
+
+  </div>
+
+  <!--
+  ***************************************************************************************************************************************************************
+  ************************************************************* JavaScript Starts *******************************************************************************
+  ***************************************************************************************************************************************************************
+-->
+
+  <script>//JavaScript Starts 
     var xyz = "xyz"; //for the dropdown menu - option selector
 
     var x = document.getElementById("mainArea").value;
@@ -149,15 +180,16 @@
         y = y + x[i];
         z = z + x[i];
       }
-      //alert(y[y.length]); 
-      y.length = y.length - 1;
-      //     alert(y[y.length]); 
-      z.length = z.length - 1;
-      //alert(y);
-      document.getElementById("results").innerHTML = y;
-      //alert(document.getElementById("mainArea").value); 
-      document.getElementById("mainArea").value = z;
-      //document.getElementById("results").innerHTML = "This works too"; 
+
+      let cleanY = y.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
+      console.log(cleanY);
+      let cleanZ = z.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
+      console.log(cleanZ);
+
+      //document.getElementById("results").innerHTML = cleanY; //cleanY
+      document.getElementById("mainArea").value = cleanZ;
+      navigator.clipboard.writeText(cleanZ);
+
     }
 
     //dropdown change function
@@ -215,14 +247,7 @@
       }//if else if nest ends
     }//dropdown change function ends
 
-    //function to trigger onclick when pressed enter in the input box 
-    var input = document.getElementById("total");
-    input.addEventListener("keypress", function (event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        document.getElementById("submit").click();
-      }
-    })//event function ends
+
 
     //function to calculate the differences
     function breakPrice() {
@@ -284,6 +309,23 @@
       }
     }//break price ends
 
+    function templateBuilder() {
+      //document.getElementById("templates").innerHTML = "COMING SOON!!!!"; 
+      alert("COMING SOON!!!");
+    }
+
+    //************************ DO NOT DELETE THIS ***********************************
+    //***
+    //function to trigger onclick when pressed enter in the input box       //*** 
+    var input = document.getElementById("total");                           //***
+    input.addEventListener("keypress", function (event) {                   //***  
+      if (event.key === "Enter") {                                          //***
+        event.preventDefault();                                             //***
+        document.getElementById("submit").click();                          //*** 
+      }                                                                     //*** 
+    })//event function ends                                                 //***
+    //***
+    //************************ DO NOT DELETE THIS ***********************************                                                                            
 
     /*
     
@@ -328,10 +370,31 @@
       if (z.checked == true) {
         alert('Full kit selected');
       }
-        
+       
+
+
+
+      let len2 = y.length; 
+      for (let j = 0; j < len2; j++){
+        if (y[j] === undefined){
+          alert("There's undefined"); 
+          alert("before subs " + y.length); 
+          y.length = y.length - 10; 
+          
+          alert("after subs " + y.length); 
+          break; 
+        }
+      }
+
         
         */
-  </script>
+  </script><!--JavaScript Ends-->
+
+  <!--
+  ***************************************************************************************************************************************************************
+  ************************************************************* JavaScript Ends *******************************************************************************
+  ***************************************************************************************************************************************************************
+-->
 </body>
 
 </html>
