@@ -162,11 +162,17 @@
     var y = "";
     var z = "";
     var w = "";
-    var u = "https://www.purolator.com/en/shipping/tracker?pins=";
+
+    var puro = "https://www.purolator.com/en/shipping/tracker?pins=";
+    var fedex = "https://www.fedex.com/fedextrack/summary?trknbr=";
+    var ups = "https://www.ups.com/track?loc=en_CA&tracknum=";
+
+    var cleanUPS = "";
 
     var cleanW = "";
     var cleanY = "";
     var cleanZ = "";
+    var newCleanW = "";
 
     function showTracking(url) {
       window.open(url, '_blank');
@@ -178,6 +184,7 @@
       y = "";
       z = "";
       w = "";
+      cleanUPS = "";
       x = document.getElementById("mainArea").value;
       //alert(x[1]); 
       let len = x.length;
@@ -227,7 +234,7 @@
           i = i + 5;
           y = y + "<br>";
           z = z + "\n";
-          w = w + ",\n";
+          w = w + ",";
         }
         if (x[i] === "\n") {
           i++;
@@ -246,10 +253,19 @@
       console.log("z : " + cleanZ);
       cleanW = w.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
       console.log("w : " + cleanW);
+      newCleanW = cleanW.slice(0, -1);
       document.getElementById("mainArea").value = cleanZ;
       navigator.clipboard.writeText(cleanZ);
-
-      showTracking(u + cleanW);
+      if (cleanZ[0] > 6) {
+        showTracking(fedex + newCleanW);
+      } else if (cleanZ[0] > 2) {
+        showTracking(puro + newCleanW);
+      } else {
+        for (let h = 0; h < 18; h++) {
+          cleanUPS = cleanUPS + newCleanW[h];
+        }
+        showTracking(ups + cleanUPS);
+      }
     }
 
     //dropdown change function
