@@ -13,7 +13,7 @@
 
   <style>
     body {
-      /*background-color: rgba(0, 0, 0, 0.795);*/
+      background-color: whitesmoke;
       color: black;
     }
 
@@ -60,7 +60,7 @@
 
     .babyDiv {
       padding: 10px;
-      border: 2px solid green;
+      border: 2px solid darkblue;
     }
   </style>
 
@@ -130,13 +130,15 @@
     </h5>
   </div>
   <div class="babyDiv">
-    <h1>Remove Brackets</h1>
+    <h1>Tracking Editor</h1>
     <br>
     <textarea id="mainArea" name="mainArea" rows="7" columns="20"></textarea>
     <br><br>
     <button onclick="showResults()">Remove & Copy</button>
     <br><br><br>
     <label id="results" name="results"></label>
+    <button onclick="goTracking()">Remove & Go</button>
+
   </div>
 
   <div class="babyDiv">
@@ -159,9 +161,23 @@
     var x = document.getElementById("mainArea").value;
     var y = "";
     var z = "";
+    var w = "";
+    var u = "https://www.purolator.com/en/shipping/tracker?pins=";
+
+    var cleanW = "";
+    var cleanY = "";
+    var cleanZ = "";
+
+    function showTracking(url) {
+      window.open(url, '_blank');
+    }
+
+
+
     function showResults() {
       y = "";
       z = "";
+      w = "";
       x = document.getElementById("mainArea").value;
       //alert(x[1]); 
       let len = x.length;
@@ -171,25 +187,69 @@
           i = i + 5;
           y = y + "<br>";
           z = z + "\n";
+          w = w + ",\n";
         }
         if (x[i] === "\n") {
           i++;
           y = y + "<br>";
           z = z + "\n";
+          //w = w + ",\n";
         }
         y = y + x[i];
         z = z + x[i];
+        w = w + x[i];
       }
 
-      let cleanY = y.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
-      console.log(cleanY);
-      let cleanZ = z.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
-      console.log(cleanZ);
+      cleanY = y.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
+      console.log("y : " + cleanY);
+      cleanZ = z.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
+      console.log("z : " + cleanZ);
+      cleanW = w.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
+      console.log("w : " + cleanW);
 
       //document.getElementById("results").innerHTML = cleanY; //cleanY
       document.getElementById("mainArea").value = cleanZ;
       navigator.clipboard.writeText(cleanZ);
+      //showTracking(u+cleanW); 
 
+    }
+
+    function goTracking() {
+      y = "";
+      z = "";
+      w = "";
+      x = document.getElementById("mainArea").value;
+      //alert(x[1]); 
+      let len = x.length;
+      //alert(len); 
+      for (let i = 0; i < len; i++) {
+        if (x[i] === " ") {
+          i = i + 5;
+          y = y + "<br>";
+          z = z + "\n";
+          w = w + ",\n";
+        }
+        if (x[i] === "\n") {
+          i++;
+          y = y + "<br>";
+          z = z + "\n";
+          //w = w + ",\n";
+        }
+        y = y + x[i];
+        z = z + x[i];
+        w = w + x[i];
+      }
+
+      cleanY = y.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
+      console.log("y : " + cleanY);
+      cleanZ = z.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
+      console.log("z : " + cleanZ);
+      cleanW = w.replace(/undefined/g, ""); //remove any 'undefined' tags in the end 
+      console.log("w : " + cleanW);
+      document.getElementById("mainArea").value = cleanZ;
+      navigator.clipboard.writeText(cleanZ);
+
+      showTracking(u + cleanW);
     }
 
     //dropdown change function
